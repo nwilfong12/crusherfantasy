@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Players</title>
+</head>
+
+<body>
+
+<h1>Active NBA Players</h1>
+
+<ul>
+
+{% for player in players %}
+
+<li>
+    {{ player.name }} — {{ player.team }} ({{ player.position }})
+</li>
+
+{% endfor %}
+
+</ul>
+
+</body>
+</html>
