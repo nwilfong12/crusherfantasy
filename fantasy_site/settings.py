@@ -31,9 +31,11 @@ SECRET_KEY = 'django-insecure-suo+dpovq3-ej%ta(nb%tmp-$(h_5dy97(%khf$1l6*^jf2i9^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["crusherfantasy.com"]
-
-
+ALLOWED_HOSTS = [
+    "crusherfantasy.com",
+    "www.crusherfantasy.com",
+    "crusherfantasy.onrender.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
