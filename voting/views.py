@@ -52,7 +52,10 @@ def vote_page(request):
         else:
             return redirect("/vote/")
     players = list(Player.objects.all())
-    selected_players = random.sample(players, 5)
+    if(len(players)) >=5:
+        selected_players = random.sample(players, 5)
+    else:
+        selected_players = players
     TEAM_IDS = {
         "Hawks": "1610612737",
         "Celtics": "1610612738",
