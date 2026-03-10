@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'fantasy_site.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.environ.get("postgresql://crusherfantasy_user:2t5rEsGKY6d73FaCsT0YEwY4Dc4mOtKw@dpg-d6o9of5m5p6s73fip2ag-a/crusherfantasy")
+        default=os.environ.get("DATABASE_URL")
     )
 }
 
