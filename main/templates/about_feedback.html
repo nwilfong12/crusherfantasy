@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block content %}
+<Style>
+.about_container{
+    width: 66%;
+    margin:60px auto;
+    background-color: lightgray;
+    border:3px solid black;
+    padding:30px 40px;
+    border-radius:8px;
+    text-align:center;
+}
+
+.about-title{
+    font-size: 36px;
+    margin-bottom:20px;
+    color: black;
+}
+
+.about-text{
+    font_size:18px;
+    line_height:1.6;
+    color: black;
+}
+
+.contact-container{
+    width: 66%;
+    margin:60px auto;
+    background-color: lightgray;
+    border:3px solid black;
+    padding:30px 40px;
+    border-radius:8px;
+    text-align:center;
+}
+
+.contact-title{
+    font-size: 36px;
+    margin-bottom:20px;
+    color: black;
+}
+
+.contact-text{
+    font_size:18px;
+    line_height:1.6;
+    color: black;
+}
+.feedback-container{
+    width: 66%;
+    margin:60px auto;
+    background-color: lightgray;
+    border:3px solid black;
+    padding:30px 40px;
+    border-radius:8px;
+    text-align:center;
+}
+
+.feedback-name{
+    width: 100%;
+    font-size: 18px;
+    color: black;
+}
+
+.feedback-email{
+    width: 100%;
+    font-size: 18px;
+    color: black;
+}
+.feedback-message{
+    width: 100%;
+    font-size: 18px;
+    color: black;
+}
+.feedback-container input,
+.feedback-container textarea{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    margin-bottom:15px;
+    box-sizing:border-box;
+}
+
+.feedback-container button{
+    width:100%;
+    padding:15px;
+    font-size:18px;
+    font-weight:bold;
+    background-color:#333;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+</Style>
+<div class="about_container">
+
+    <h1 class ="about-title">ABOUT US</h1>
+
+    <p class="about-text">
+        Crusher Fantasy is a Dynasty Basketball Companion tool. With the idea to be able to
+        take something complex such as Dynasty Basketball and provide tools to make it easier
+        for the player. At the moment the only feature is the crowd-sourced rankings. We take
+        all the data from individual players voting to make an accurate ranking of all the NBA
+        Players to help managers analysis trades, waivers and drafts. In the future we plan to
+        implement a Trade Calculator, Start/Sit tool, Expert Rankings, Team Analysis, Mock
+        Draft tool, and Prospect Rankings.
+    </p>
+</div>
+<div class="contact-container">
+    <h3 class ="contact-title">CONTACT US</h3>
+    <p class ="contact-text">
+    For any business related questions contact us at crusherfantasy@gmail.com
+    </p>
+</div>
+<div class="feedback-container">
+
+    <h2 class = "feedback-title">SUBMIT FEEDBACK</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+    <div class = "feedback-name">
+        {{ form.name }}
+    <br><br>
+    </div>
+
+    <div class = "feedback-email">
+        {{ form.email }}
+        <br><br>
+    </div>
+
+    <div class = "feedback-message">
+        {{ form.message }}
+        <br><br>
+    </div>
+
+    <br>
+    <button type="submit">Send Feedback</button>
+</form>
+</div>
+
+{% endblock %}

@@ -1,7 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="2a69a927-4d68-466c-802b-19d17e72f4b7" name="Changes" comment="" />
+    <list default="true" id="2a69a927-4d68-466c-802b-19d17e72f4b7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/fantasy_site.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/forms.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/templates/about_feedback.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/templates/main/leaderboard.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/players.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/players/management/commands/import_players.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/players/templates/players/players_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/players/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voting/templates/voting/voting.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voting/urls.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +42,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master"
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/madis/Downloads/lab5_starter/lab5_starter"
   }
 }]]></component>
   <component name="SharedIndexes">

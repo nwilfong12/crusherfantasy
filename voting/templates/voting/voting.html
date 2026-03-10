@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+
+body{
+    font-family: Arial;
+    background-color:#800000;
+    color:white;
+    text-align:center;
+}
+
+.players-container{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.player-card{
+    background:white;
+    color:black;
+    width:200px;
+    padding:15px;
+    border-radius:10px;
+    cursor:grab;
+}
+
+.player-headshot{
+    width:150px;
+    height:auto;
+}
+
+.team-logo{
+    width:25px;
+    vertical-align:middle;
+}
+
+.rank-number{
+    font-size:18px;
+    font-weight:bold;
+    color:#800000;
+}
+
+button{
+    width: 260px;
+    margin-top:30px;
+    padding:12px 25px;
+    font-size:16px;
+    background-color:#550000;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background-color 0.2s;
+}
+
+button:hover{
+    background-color:#2a2a2a;
+}
+
+.skip-button{
+    background-color:#550000;
+}
+    form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+</style>
+
+
+<h1>Drag Players Best → Worst</h1>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="players-container" id="players">
+
+{% for player in players %}
+
+<div class="player-card" data-player="{{ player.id }}">
+
+<img src="https://cdn.nba.com/headshots/nba/latest/260x190/{{ player.player_id }}.png"
+class="player-headshot">
+
+<h3>{{ player.name }}</h3>
+
+<p>
+<img src="{{ player.logo_url }}" class="team-logo">
+{{ player.position }}
+</p>
+
+<div class="rank-number"></div>
+
+<input type="hidden" name="player_{{ player.id }}" id="input_{{ player.id }}">
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<button type="submit">Submit Vote</button>
+
+<button type="submit" name="skip_vote" value="1" class="skip-button">
+    I Don't Know These Players
+</button>
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+
+<script>
+
+const container = document.getElementById("players")
+
+new Sortable(container,{
+    animation:150,
+    onEnd:updateRanks
+})
+
+function updateRanks(){
+
+    const cards = container.children
+
+    for(let i=0;i<cards.length;i++){
+
+        const playerId = cards[i].dataset.player
+        const rank = i+1
+
+        document.getElementById("input_"+playerId).value = rank
+
+        cards[i].querySelector(".rank-number").innerHTML = "#"+rank
+    }
+}
+
+updateRanks()
+
+function refreshPlayers(){
+    window.location.href = "/vote/"
+}
+</script>
+
+{% endblock %}

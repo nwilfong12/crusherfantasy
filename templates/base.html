@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Fantasy Basketball Rankings</title>
+
+<style>
+
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color:#8b0000;
+}
+
+/* Main title */
+.site-header{
+    text-align:center;
+    background-color:#550000;
+    padding:25px 0;
+}
+
+.site-title{
+    font-size:60px;
+    font-weight:900;
+    color:white;
+    letter-spacing:5px;
+    margin:0;
+}
+
+/* Navigation bar */
+.navbar{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    background-color:#7a0000;
+    padding:15px;
+
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    box-shadow:0 3px 8px rgba(0,0,0,0.3)
+}
+
+/* Navigation links */
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+}
+
+/* Hover effect */
+.navbar a:hover{
+    text-decoration:underline;
+}
+</style>
+
+</head>
+<body>
+{% load static %}
+
+<div class="site-header">
+    <h1 class="site-title">CRUSHER FANTASY</h1>
+</div>
+
+<div class="navbar">
+    <a href="/players/">Rankings</a>
+    <a href="/">Vote</a>
+    <a href="/about/">About and Feedback</a>
+</div>
+
+
+
+<div class="content">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+</body>
+</html>
