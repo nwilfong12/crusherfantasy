@@ -31,10 +31,13 @@ SECRET_KEY = 'django-insecure-suo+dpovq3-ej%ta(nb%tmp-$(h_5dy97(%khf$1l6*^jf2i9^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = [
     "crusherfantasy.com",
     "www.crusherfantasy.com",
     "crusherfantasy.onrender.com",
+    "127.0.0.1",
+    "localhost",
 ]
 # Application definition
 
@@ -91,6 +94,22 @@ DATABASES = {
         default=os.environ.get("DATABASE_URL")
     )
 }
+import os
+import dj_database_url
+
+if "RENDER" in os.environ:
+    DATABASES = {
+        "default": dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
+    )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
 
 
 # Password validation
