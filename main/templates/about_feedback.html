@@ -1,142 +1,161 @@
 {% extends "base.html" %}
 
 {% block content %}
-<Style>
-.about_container{
-    width: 66%;
-    margin:60px auto;
-    background-color: lightgray;
-    border:3px solid black;
-    padding:30px 40px;
-    border-radius:8px;
-    text-align:center;
+
+<style>
+
+/* =========================
+   PAGE LAYOUT
+========================= */
+
+.info-section{
+    background: var(--card);
+    border-radius:22px;
+    padding:40px;
+    box-shadow: var(--shadow-md);
+    border:1px solid var(--border);
+    margin-bottom:30px;
 }
 
-.about-title{
-    font-size: 36px;
-    margin-bottom:20px;
-    color: black;
-}
-
-.about-text{
-    font_size:18px;
-    line_height:1.6;
-    color: black;
-}
-
-.contact-container{
-    width: 66%;
-    margin:60px auto;
-    background-color: lightgray;
-    border:3px solid black;
-    padding:30px 40px;
-    border-radius:8px;
-    text-align:center;
-}
-
-.contact-title{
-    font-size: 36px;
-    margin-bottom:20px;
-    color: black;
-}
-
-.contact-text{
-    font_size:18px;
-    line_height:1.6;
-    color: black;
-}
-.feedback-container{
-    width: 66%;
-    margin:60px auto;
-    background-color: lightgray;
-    border:3px solid black;
-    padding:30px 40px;
-    border-radius:8px;
-    text-align:center;
-}
-
-.feedback-name{
-    width: 100%;
-    font-size: 18px;
-    color: black;
-}
-
-.feedback-email{
-    width: 100%;
-    font-size: 18px;
-    color: black;
-}
-.feedback-message{
-    width: 100%;
-    font-size: 18px;
-    color: black;
-}
-.feedback-container input,
-.feedback-container textarea{
-    width:100%;
-    padding:12px;
-    font-size:18px;
+.section-title{
+    font-size:34px;
+    font-weight:800;
     margin-bottom:15px;
-    box-sizing:border-box;
+    text-align:center;
 }
 
-.feedback-container button{
+.section-text{
+    font-size:17px;
+    line-height:1.7;
+    color: var(--text-secondary);
+    max-width:800px;
+    margin:auto;
+}
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-email{
+    font-weight:700;
+    color: var(--primary-500);
+}
+
+/* =========================
+   FEEDBACK FORM
+========================= */
+
+.feedback-form{
+    max-width:650px;
+    margin:auto;
+    margin-top:20px;
+}
+
+.feedback-form input,
+.feedback-form textarea{
     width:100%;
-    padding:15px;
-    font-size:18px;
-    font-weight:bold;
-    background-color:#333;
-    color:white;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
+    padding:14px 18px;
+    border-radius:14px;
+    border:1px solid var(--border);
+    font-size:16px;
+    margin-bottom:14px;
+    font-family:'Inter',sans-serif;
+    transition:.2s;
 }
-</Style>
-<div class="about_container">
 
-    <h1 class ="about-title">ABOUT US</h1>
+.feedback-form input:focus,
+.feedback-form textarea:focus{
+    outline:none;
+    border-color: var(--primary-400);
+    box-shadow:0 0 0 3px rgba(124,58,237,.15);
+}
 
-    <p class="about-text">
-        Crusher Fantasy is a Dynasty Basketball Companion tool. With the idea to be able to
-        take something complex such as Dynasty Basketball and provide tools to make it easier
-        for the player. At the moment the only feature is the crowd-sourced rankings. We take
-        all the data from individual players voting to make an accurate ranking of all the NBA
-        Players to help managers analysis trades, waivers and drafts. In the future we plan to
-        implement a Trade Calculator, Start/Sit tool, Expert Rankings, Team Analysis, Mock
-        Draft tool, and Prospect Rankings.
-    </p>
+.feedback-form textarea{
+    min-height:140px;
+    resize:vertical;
+}
+
+/* Submit Button */
+
+.feedback-button{
+    width:100%;
+    padding:16px;
+    border-radius:40px;
+    background: var(--brand-gradient);
+    border:none;
+    color:white;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.2s;
+    box-shadow: var(--shadow-sm);
+}
+
+.feedback-button:hover{
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Small spacing tweak */
+
+.page-wrapper{
+    max-width:1000px;
+    margin:auto;
+}
+
+</style>
+
+
+<div class="page-wrapper">
+
+<div class="info-section">
+
+<h1 class="section-title">About Crusher Fantasy</h1>
+
+<p class="section-text">
+Crusher Fantasy is a dynasty basketball companion platform built to simplify complex decision-making for fantasy managers.
+Our current feature uses crowd-sourced voting to generate real-time dynasty rankings across the NBA. By aggregating thousands
+of individual evaluations, we aim to provide a more accurate view of player value to help managers make smarter decisions in trades,
+waiver moves, drafts, and long-term roster construction.
+<br><br>
+Future tools will include a Trade Calculator, Start/Sit Optimizer, Expert Rankings integration, Team Analysis dashboards, Mock Draft simulations,
+and Prospect scouting rankings.
+</p>
+
 </div>
-<div class="contact-container">
-    <h3 class ="contact-title">CONTACT US</h3>
-    <p class ="contact-text">
-    For any business related questions contact us at crusherfantasy@gmail.com
-    </p>
+
+
+<div class="info-section">
+
+<h2 class="section-title">Contact</h2>
+
+<p class="section-text">
+For partnerships or business inquiries, reach out at
+<span class="contact-email">crusherfantasy@outlook.com</span>.
+</p>
+
 </div>
-<div class="feedback-container">
 
-    <h2 class = "feedback-title">SUBMIT FEEDBACK</h2>
 
-    <form method="post">
-        {% csrf_token %}
+<div class="info-section">
 
-    <div class = "feedback-name">
-        {{ form.name }}
-    <br><br>
-    </div>
+<h2 class="section-title">Submit Feedback</h2>
 
-    <div class = "feedback-email">
-        {{ form.email }}
-        <br><br>
-    </div>
+<form method="post" class="feedback-form">
+{% csrf_token %}
 
-    <div class = "feedback-message">
-        {{ form.message }}
-        <br><br>
-    </div>
+{{ form.name }}
+{{ form.email }}
+{{ form.message }}
 
-    <br>
-    <button type="submit">Send Feedback</button>
+<button type="submit" class="feedback-button">
+Send Feedback
+</button>
+
 </form>
+
+</div>
+
 </div>
 
 {% endblock %}

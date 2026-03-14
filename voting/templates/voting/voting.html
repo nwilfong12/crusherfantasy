@@ -4,76 +4,149 @@
 
 <style>
 
-body{
-    font-family: Arial;
-    background-color:#800000;
-    color:white;
+/* =========================
+   PAGE TITLE
+========================= */
+.vote-page{
+    max_width:1100px;
+    margin:0 auto;
     text-align:center;
 }
+.vote-title{
+    font-size:34px;
+    font-weight:800;
+    margin-bottom:30px;
+}
+
+/* =========================
+   PLAYER GRID
+========================= */
 
 .players-container{
     display:flex;
     justify-content:center;
-    gap:20px;
+    gap:25px;
     flex-wrap:wrap;
 }
 
+/* =========================
+   PLAYER CARD
+========================= */
+
 .player-card{
-    background:white;
-    color:black;
-    width:200px;
-    padding:15px;
-    border-radius:10px;
+    background: var(--card);
+    width:220px;
+    padding:20px;
+    border-radius:18px;
     cursor:grab;
+    box-shadow: var(--shadow-md);
+    border:1px solid var(--border);
+    transition:.2s;
+    position:relative;
 }
 
+.player-card:hover{
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Headshot */
+
 .player-headshot{
-    width:150px;
+    width:160px;
     height:auto;
 }
 
+/* Team Logo */
+
 .team-logo{
-    width:25px;
+    width:24px;
     vertical-align:middle;
+    margin-right:6px;
 }
+
+/* Player Name */
+
+.player-card h3{
+    margin:12px 0 6px 0;
+    font-size:20px;
+}
+
+/* Position Text */
+
+.player-position{
+    color: var(--text-secondary);
+    font-size:14px;
+}
+
+/* Rank Badge */
 
 .rank-number{
-    font-size:18px;
-    font-weight:bold;
-    color:#800000;
+    position:absolute;
+    top:12px;
+    left:12px;
+    background:#f1f0ff;
+    color: var(--primary-600);
+    font-weight:700;
+    padding:6px 12px;
+    border-radius:12px;
+    font-size:14px;
 }
 
-button{
-    width: 260px;
-    margin-top:30px;
-    padding:12px 25px;
-    font-size:16px;
-    background-color:#550000;
-    color:white;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    transition:background-color 0.2s;
-}
+/* =========================
+   BUTTONS
+========================= */
 
-button:hover{
-    background-color:#2a2a2a;
-}
-
-.skip-button{
-    background-color:#550000;
-}
-    form{
+.vote-buttons{
+    margin-top:40px;
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:10px;
+    gap:12px;
+}
+
+button{
+    width:280px;
+    padding:14px 25px;
+    font-size:16px;
+    background: var(--primary-500);
+    color:white;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+    box-shadow: var(--shadow-sm);
+}
+
+button:hover{
+    background: var(--primary-600);
+    transform: translateY(-2px);
+}
+
+.skip-button{
+    background: var(--bg-soft);
+    color: var(--text-secondary);
+}
+
+.skip-button:hover{
+    background: var(--border);
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
 </style>
 
+<div class="vote-page">
 
-<h1>Drag Players In Order of Dynasty Value Best → Worst</h1>
+    <h1 class="vote-title">
+Drag Players In Order of Dynasty Value Best → Worst
+</h1>
+
 
 <form method="POST">
 {% csrf_token %}
@@ -84,17 +157,17 @@ button:hover{
 
 <div class="player-card" data-player="{{ player.id }}">
 
+<div class="rank-number"></div>
+
 <img src="https://cdn.nba.com/headshots/nba/latest/260x190/{{ player.player_id }}.png"
 class="player-headshot">
 
 <h3>{{ player.name }}</h3>
 
-<p>
+<p class="player-position">
 <img src="{{ player.logo_url }}" class="team-logo">
 {{ player.position }}
 </p>
-
-<div class="rank-number"></div>
 
 <input type="hidden" name="player_{{ player.id }}" id="input_{{ player.id }}">
 
@@ -104,11 +177,14 @@ class="player-headshot">
 
 </div>
 
+<div class="vote-buttons">
 <button type="submit">Submit Vote</button>
 
 <button type="submit" name="skip_vote" value="1" class="skip-button">
-    I Don't Know These Players
+I Don't Know These Players
 </button>
+</div>
+
 </form>
 
 
@@ -119,7 +195,8 @@ class="player-headshot">
 const container = document.getElementById("players")
 
 new Sortable(container,{
-    animation:150,
+    animation:200,
+    ghostClass: "dragging",
     onEnd:updateRanks
 })
 
@@ -140,9 +217,6 @@ function updateRanks(){
 
 updateRanks()
 
-function refreshPlayers(){
-    window.location.href = "/vote/"
-}
 </script>
 
 {% endblock %}

@@ -1,59 +1,129 @@
 <!DOCTYPE html>
-
 <html>
 <head>
 <title>Fantasy Basketball Rankings</title>
 
+<!-- Modern Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
 <style>
+
+/* =========================
+   COLOR SYSTEM
+========================= */
+
+:root{
+
+  --primary-700:#5b21b6;
+  --primary-600:#6d28d9;
+  --primary-500:#7c3aed;
+  --primary-400:#8b5cf6;
+
+  --accent-500:#6366f1;
+  --accent-400:#818cf8;
+
+  --bg-main:#f6f7fb;
+  --bg-soft:#eef0f6;
+  --card:#ffffff;
+
+  --border:#e6e8ef;
+
+  --text-main:#111827;
+  --text-secondary:#4b5563;
+  --text-muted:#9ca3af;
+  --text-inverse:#ffffff;
+
+  --shadow-sm:0 2px 6px rgba(0,0,0,.05);
+  --shadow-md:0 8px 20px rgba(0,0,0,.08);
+  --shadow-lg:0 15px 35px rgba(0,0,0,.12);
+
+  --brand-gradient: linear-gradient(135deg,#7c3aed,#6366f1);
+
+}
+
+/* =========================
+   BASE
+========================= */
 
 body{
     margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color:#8b0000;
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
 }
 
-/* Main title */
+/* =========================
+   HEADER
+========================= */
+
 .site-header{
     text-align:center;
-    background-color:#550000;
-    padding:25px 0;
+    background: var(--brand-gradient);
+    padding:30px 0;
+    box-shadow: var(--shadow-md);
 }
 
 .site-title{
-    font-size:60px;
+    font-size:64px;
     font-weight:900;
     color:white;
-    letter-spacing:5px;
+    letter-spacing:6px;
     margin:0;
 }
 
-/* Navigation bar */
+/* =========================
+   NAVBAR
+========================= */
+
 .navbar{
     display:flex;
     justify-content:center;
-    gap:40px;
-    background-color:#7a0000;
-    padding:15px;
+    gap:50px;
+    background: white;
+    padding:18px;
 
     position:sticky;
     top:0;
     z-index:1000;
 
-    box-shadow:0 3px 8px rgba(0,0,0,0.3)
+    box-shadow: var(--shadow-sm);
+    border-bottom:1px solid var(--border);
 }
 
 /* Navigation links */
 .navbar a{
-    color:white;
+    color: var(--text-secondary);
     text-decoration:none;
-    font-size:20px;
-    font-weight:bold;
+    font-size:18px;
+    font-weight:600;
+    transition: .2s;
 }
 
 /* Hover effect */
 .navbar a:hover{
-    text-decoration:underline;
+    color: var(--primary-500);
+    transform: translateY(-1px);
 }
+
+/* =========================
+   MAIN CONTENT LAYOUT
+========================= */
+
+.content{
+    max-width:1100px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+/* Future card containers */
+.card{
+    background: var(--card);
+    border-radius:18px;
+    padding:28px;
+    box-shadow: var(--shadow-md);
+    border:1px solid var(--border);
+}
+
 </style>
 
 </head>
@@ -69,8 +139,6 @@ body{
     <a href="/">Vote</a>
     <a href="/about/">About and Feedback</a>
 </div>
-
-
 
 <div class="content">
 
