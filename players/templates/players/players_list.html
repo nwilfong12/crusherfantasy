@@ -3,7 +3,21 @@
 {% load static %}
 
 <style>
+/* ===== DESKTOP LAYOUT ===== */
 
+.mobile-search-line{
+    flex:1;
+}
+
+.mobile-button-line{
+    display:flex;
+    gap:8px;
+}
+
+.mobile-filter-line{
+    display:flex;
+    gap:8px;
+}
 /* =========================
    FILTER PANEL
 ========================= */
@@ -396,44 +410,51 @@ tr:hover{
 
 <div class="controls-row">
 
-<div class="search-wrapper">
-<input type="text"
-name="q"
-placeholder="Search NBA players..."
-value="{{ query|default:'' }}"
-class="search-input"
-id="player-search"
-autocomplete="off">
-<div id="search-results"></div>
-</div>
+    <!-- line 1 -->
+    <div class="mobile-search-line">
+        <div class="search-wrapper">
+            <input type="text"
+                name="q"
+                placeholder="Search NBA players..."
+                value="{{ query|default:'' }}"
+                class="search-input"
+                id="player-search"
+                autocomplete="off">
+            <div id="search-results"></div>
+        </div>
+    </div>
 
-<button type="submit" class="search-button toolbar-btn">Search</button>
+    <!-- line 2 -->
+    <div class="mobile-button-line">
+        <button type="submit" class="search-button toolbar-btn">Search</button>
+        <a href="/players/" class="clear-button toolbar-btn">Clear</a>
+    </div>
 
-<a href="/players/" class="clear-button toolbar-btn">Clear</a>
+    <!-- line 3 -->
+    <div class="mobile-filter-line">
+        <label class="filter-chip toolbar-btn">
+            <input type="checkbox" name="position" value="Guard"
+            {% if "Guard" in selected_positions %}checked{% endif %}
+            onchange="this.form.submit()">Guard
+        </label>
 
-<label class="filter-chip toolbar-btn">
-<input type="checkbox" name="position" value="Guard"
-{% if "Guard" in selected_positions %}checked{% endif %}
-onchange="this.form.submit()">Guard
-</label>
+        <label class="filter-chip toolbar-btn">
+            <input type="checkbox" name="position" value="Forward"
+            {% if "Forward" in selected_positions %}checked{% endif %}
+            onchange="this.form.submit()">Forward
+        </label>
 
-<label class="filter-chip toolbar-btn">
-<input type="checkbox" name="position" value="Forward"
-{% if "Forward" in selected_positions %}checked{% endif %}
-onchange="this.form.submit()">Forward
-</label>
-
-<label class="filter-chip toolbar-btn">
-<input type="checkbox" name="position" value="Center"
-{% if "Center" in selected_positions %}checked{% endif %}
-onchange="this.form.submit()">Center
-</label>
+        <label class="filter-chip toolbar-btn">
+            <input type="checkbox" name="position" value="Center"
+            {% if "Center" in selected_positions %}checked{% endif %}
+            onchange="this.form.submit()">Center
+        </label>
+    </div>
 
 </div>
 
 </form>
 </div>
-
 
 <div class="table-card">
 
