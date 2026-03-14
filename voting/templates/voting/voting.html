@@ -148,91 +148,158 @@ form{
 
 @media (max-width:768px){
 
+@media (max-width:768px){
+
+   ... OLD MOBILE CODE HERE ...
+
+}
+
+</style>
+✅ After replacement it should look like:
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width:768px){
+
+   ... NEW ELITE MOBILE CODE I GAVE YOU ...
+
+}
+
+</style>
+🚨 VERY IMPORTANT
+
+Do NOT delete:
+
+the comment block above
+
+the </style> line below
+
+Only replace the media query contents.
+
+If you want, paste your updated file after you change it
+I’ll:
+
+✅ check spacing
+✅ check layout
+✅ improve drag feel
+✅ make voting cards feel more “premium startup”
+✅ make submit button sticky
+✅ add glow selection animation
+
+We can make this page insanely polished.
+
+this is wrong. No scrolling should be involved it should be a 3-2 set up
+
+Ahhh ✅ got you — this is a completely different requirement.
+
+You do NOT want stacked cards.
+You want:
+
+🔥 ALL 5 players visible on mobile
+🔥 NO vertical scrolling
+🔥 Layout exactly like screenshot
+🔥 3 cards on top row
+🔥 2 cards centered on bottom row
+🔥 Still draggable
+🔥 Still compact
+
+This is actually a grid math layout problem, not just styling.
+
+✅ Replace your current mobile section with THIS
+
+Find:
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+Replace the entire media query until </style> with:
+
+/* =========================
+   MOBILE RESPONSIVE — 3-2 GRID
+========================= */
+
+@media (max-width:768px){
+
 .vote-page{
-    padding:12px;
+    padding:6px;
 }
 
 .vote-title{
-    font-size:22px;
-    margin-bottom:18px;
+    font-size:18px;
+    margin-bottom:10px;
 }
 
-/* STACK cards vertically */
+/* 3-2 GRID */
 
 .players-container{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:8px;
+    justify-items:center;
 }
 
-/* MOBILE CARD */
+/* bottom row centering */
+
+.player-card:nth-child(4){
+    grid-column: 1 / span 1;
+}
+
+.player-card:nth-child(5){
+    grid-column: 3 / span 1;
+}
+
+/* CARD COMPACT */
 
 .player-card{
     width:100%;
-    padding:18px 14px 16px 14px;
-    border-radius:22px;
+    padding:8px;
+    border-radius:16px;
     text-align:center;
-    cursor:grab;
 }
 
-/* rank bubble like screenshot */
-
-.rank-number{
-    top:10px;
-    left:10px;
-    background:#ebe9ff;
-    color:#6c5ce7;
-    font-size:13px;
-    padding:5px 10px;
-    border-radius:14px;
-}
-
-/* BIG headshot */
+/* headshot */
 
 .player-headshot{
-    width:120px;
-    height:120px;
-    object-fit:contain;
-    margin-top:6px;
+    width:100%;
+    max-width:85px;
 }
 
 /* name */
 
 .player-card h3{
-    font-size:18px;
-    margin-top:6px;
+    font-size:13px;
+    margin:4px 0 2px 0;
+    line-height:1.1;
 }
 
-/* meta row */
+/* position row */
 
 .player-position{
-    margin-top:4px;
-    font-size:14px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:6px;
+    font-size:10px;
 }
 
-/* BUTTONS FULL WIDTH */
+/* rank bubble */
+
+.rank-number{
+    font-size:10px;
+    padding:2px 6px;
+    border-radius:10px;
+}
+
+/* buttons tighter */
 
 .vote-buttons{
-    margin-top:18px;
-    gap:10px;
-    width:100%;
+    margin-top:10px;
+    gap:6px;
 }
 
 button{
     width:100%;
-    height:54px;
-    font-size:17px;
-    border-radius:40px;
-}
-
-/* skip button soft */
-
-.skip-button{
-    background:#eef0f6;
+    padding:9px;
+    font-size:13px;
+    border-radius:30px;
 }
 
 }
