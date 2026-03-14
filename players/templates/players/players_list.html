@@ -289,7 +289,7 @@ tr:hover{
     /* Filter panel */
 
     .filter-panel{
-        padding:16px;
+        padding:20px;
         border-radius:16px;
     }
 
@@ -307,34 +307,22 @@ tr:hover{
     }
 
     /* ===== COMPACT MOBILE TOOLBAR ===== */
-    /* ===== CLEAN MOBILE TOOLBAR ===== */
-
-.filter-panel{
-    padding:16px;
-    border-radius:16px;
-}
-
-.controls-row{
-    flex-direction:column;
-    align-items:stretch;
-    gap:12px;
+.mobile-search-line{
     width:100%;
-}
-
-.mobile-search-line,
-.mobile-button-line,
-.mobile-filter-line{
-    width:100%;
-    display:flex;
-    gap:8px;
 }
 
 .mobile-search-line .search-input{
-    width:100%;
+    width:90%;
     height:36px;
     font-size:14px;
     padding:0 14px;
     border-radius:20px;
+}
+
+.mobile-button-line{
+    width:100%;
+    display:flex;
+    gap:8px;
 }
 
 .mobile-button-line .toolbar-btn{
@@ -342,6 +330,11 @@ tr:hover{
     height:34px;
     font-size:13px;
     border-radius:20px;
+}
+.mobile-filter-line{
+    width:90%;
+    display:flex;
+    gap:8px;
 }
 
 .mobile-filter-line .toolbar-btn{
@@ -366,6 +359,18 @@ tr:hover{
     .table-card{
         padding:12px;
     }
+    @media (max-width:768px){
+
+    table{
+        display:none;
+    }
+
+    .mobile-list{
+        display:block;
+        padding:12px;
+    }
+
+}
     /* Create mobile rows */
 
     .mobile-player{

@@ -23,26 +23,19 @@
 ========================= */
 
 .players-container{
-    display:grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap:10px;
-    align-items:start;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
 }
 
-.player-card:nth-child(1),
-.player-card:nth-child(2),
-.player-card:nth-child(3){
-    grid-column: span 2;
-}
-.player-card:nth-child(4){
-    grid-column: 2 / span 2;
-}
-.player-card:nth-child(5){
-    grid-column: 4 / span 2;
-}
+/* =========================
+   PLAYER CARD
+========================= */
+
 .player-card{
     background: var(--card);
-    width:100%;
+    width:220px;
     padding:20px;
     border-radius:18px;
     cursor:grab;
@@ -60,8 +53,8 @@
 /* Headshot */
 
 .player-headshot{
-    width:100%;
-    max-width:85px;
+    width:160px;
+    height:auto;
 }
 
 /* Team Logo */
@@ -75,15 +68,15 @@
 /* Player Name */
 
 .player-card h3{
-    font-size:14px;
-    margin:6px 0 2px 0;
+    margin:12px 0 6px 0;
+    font-size:20px;
 }
 
 /* Position Text */
 
 .player-position{
     color: var(--text-secondary);
-    font-size:11px;
+    font-size:14px;
 }
 
 /* Rank Badge */
