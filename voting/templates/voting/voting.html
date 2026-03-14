@@ -157,19 +157,22 @@ form{
 
 .players-container{
     display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:8px;
-    justify-items:center;
+    grid-template-columns: repeat(6, 1fr);
+    gap:10px;
 }
 
 /* bottom row centering */
-
+.player-card:nth-child(1),
+.player-card:nth-child(2),
+.player-card:nth-child(3){
+    grid-column: span 2;
+}
 .player-card:nth-child(4){
-    grid-column: 1 / span 1;
+    grid-column: 2 / span 2;
 }
 
 .player-card:nth-child(5){
-    grid-column: 3 / span 1;
+    grid-column: 4 / span 2;
 }
 
 /* CARD COMPACT */
