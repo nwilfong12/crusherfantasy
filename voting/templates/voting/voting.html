@@ -142,67 +142,98 @@ form{
    MOBILE RESPONSIVE
 ========================= */
 
+/* =========================
+   MOBILE VOTING ELITE UI
+========================= */
+
 @media (max-width:768px){
 
-    .vote-page{
-        padding:0 10px;
-    }
-
-    .vote-title{
-        font-size:20px;
-        margin-bottom:16px;
-    }
-
-    .players-container{
-        display:grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap:10px;
-    }
-    .player-card:nth-child(4){
-        grid-column: 1 / span 1;
-    }
-
-    .player-card:nth-child(5){
-        grid-column: 3 / span 1;
-    }
-    .player-card{
-    width:100%;
-    padding:10px;
-    border-radius:12px;
+.vote-page{
+    padding:12px;
 }
+
+.vote-title{
+    font-size:22px;
+    margin-bottom:18px;
+}
+
+/* STACK cards vertically */
+
+.players-container{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+/* MOBILE CARD */
+
+.player-card{
+    width:100%;
+    padding:18px 14px 16px 14px;
+    border-radius:22px;
+    text-align:center;
+    cursor:grab;
+}
+
+/* rank bubble like screenshot */
+
+.rank-number{
+    top:10px;
+    left:10px;
+    background:#ebe9ff;
+    color:#6c5ce7;
+    font-size:13px;
+    padding:5px 10px;
+    border-radius:14px;
+}
+
+/* BIG headshot */
 
 .player-headshot{
-    width:100%;
-    max-width:95px;
+    width:120px;
+    height:120px;
+    object-fit:contain;
+    margin-top:6px;
 }
+
+/* name */
 
 .player-card h3{
-    font-size:14px;
-    margin:6px 0 2px 0;
+    font-size:18px;
+    margin-top:6px;
 }
+
+/* meta row */
 
 .player-position{
-    font-size:11px;
+    margin-top:4px;
+    font-size:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
 }
 
-    .rank-number{
-        font-size:11px;
-        padding:3px 6px;
-    }
+/* BUTTONS FULL WIDTH */
 
-    .vote-buttons{
-        margin-top:18px;
-        gap:8px;
-    }
+.vote-buttons{
+    margin-top:18px;
+    gap:10px;
+    width:100%;
+}
 
-    button{
-        width:100%;
-        max-width:none;
-        padding:10px;
-        font-size:14px;
-    }
+button{
+    width:100%;
+    height:54px;
+    font-size:17px;
+    border-radius:40px;
+}
 
+/* skip button soft */
 
+.skip-button{
+    background:#eef0f6;
+}
 
 }
 
