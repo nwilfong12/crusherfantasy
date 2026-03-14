@@ -153,32 +153,37 @@ form{
         margin-bottom:16px;
     }
 
-    /* ⭐ KEY CHANGE — keep cards on ONE ROW */
     .players-container{
-        flex-wrap:nowrap;
-        justify-content:space-between;
-        gap:8px;
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:10px;
+    }
+    .player-card:nth-child(4){
+        grid-column: 1 / span 1;
     }
 
+    .player-card:nth-child(5){
+        grid-column: 3 / span 1;
+    }
     .player-card{
-        width:32%;
-        padding:10px;
-        border-radius:12px;
-    }
+    width:100%;
+    padding:10px;
+    border-radius:12px;
+}
 
-    .player-headshot{
-        width:100%;
-        max-width:90px;
-    }
+.player-headshot{
+    width:100%;
+    max-width:95px;
+}
 
-    .player-card h3{
-        font-size:14px;
-        margin:6px 0 2px 0;
-    }
+.player-card h3{
+    font-size:14px;
+    margin:6px 0 2px 0;
+}
 
-    .player-position{
-        font-size:11px;
-    }
+.player-position{
+    font-size:11px;
+}
 
     .rank-number{
         font-size:11px;
