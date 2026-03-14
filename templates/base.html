@@ -1,8 +1,9 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 <title>Fantasy Basketball Rankings</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Modern Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 
@@ -53,18 +54,114 @@ body{
 }
 
 /* =========================
+   MODERN SPORTS HEADER
+========================= */
+
+.topbar{
+    position:sticky;
+    top:0;
+    z-index:2000;
+    display:flex;
+    justify-content:flex-start;
+
+    align-items:center;
+
+    padding:0px 40px;
+    height:72px;
+    background: linear-gradient(135deg,#7c3aed,#6366f1);
+    box-shadow: 0 6px 20px rgba(0,0,0,.15);
+}
+
+/* Brand */
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.brand-logo{
+    height:95px;
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,.35));
+    transform: translateY(10px);
+}
+
+.brand-title{
+    font-size:24px;
+    font-weight:800;
+    color:white;
+    letter-spacing:.5px;
+}
+
+/* Nav */
+
+.nav-links{
+    display:flex;
+    gap:34px;
+    margin-left:60px;
+    font-weight:700;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    font-size:17px;
+    position:relative;
+}
+.nav-links a.active{
+    color:white;
+    background: rgba(255,255,255,.18);
+    padding:6px 14px;
+    border-radius:20px;
+}
+
+.nav-links a.active:hover{
+    background: rgba(255,255,255,.28);
+}
+
+/* Animated underline */
+
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;
+    width:0%;
+    height:2px;
+    background:white;
+    transition:.25s;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.nav-links a:hover{
+    transform: translateY(-1px);
+}
+/* =========================
    HEADER
 ========================= */
 
 .site-header{
+    background: linear-gradient(135deg,#7c3aed,#6366f1);
+    position:relative;
+    overflow:hidden;
     text-align:center;
-    background: var(--brand-gradient);
-    padding:30px 0;
-    box-shadow: var(--shadow-md);
+    box-shadow: inset 0 -2px 0 rgba(255,255,255,.25);
 }
-
+.site-header::after{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background: radial-gradient(circle, rgba(255,255,255,.15), transparent 60%);
+    top:-200px;
+    left:-150px;
+}
 .site-title{
-    font-size:64px;
+    font-size:56px;
     font-weight:900;
     color:white;
     letter-spacing:6px;
@@ -79,15 +176,15 @@ body{
     display:flex;
     justify-content:center;
     gap:50px;
-    background: white;
     padding:18px;
 
     position:sticky;
     top:0;
     z-index:1000;
 
-    box-shadow: var(--shadow-sm);
-    border-bottom:1px solid var(--border);
+    background: rgba(255,255,255,.65);
+    backdrop-filter: blur(12px);
+    border-bottom:1px solid rgba(0,0,0,.05);
 }
 
 /* Navigation links */
@@ -114,7 +211,12 @@ body{
     margin:40px auto;
     padding:0 20px;
 }
-
+.bolt{
+    margin:0 18px;
+    font-size:48px;
+    vertical-align:middle;
+    opacity:.95;
+}
 /* Future card containers */
 .card{
     background: var(--card);
@@ -124,22 +226,112 @@ body{
     border:1px solid var(--border);
 }
 
+
+    /* Logo */
+    .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+}
+
+.logo-img{
+    height:70px;
+    width:auto;
+    filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+}
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px){
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+        height:auto;
+        padding:14px 20px;
+        gap:10px;
+    }
+
+    .brand{
+        width:100%;
+        justify-content:flex-start;
+    }
+
+    .brand-logo{
+        height:60px;
+        transform:none;
+    }
+
+    .brand-title{
+        font-size:20px;
+    }
+
+    .nav-links{
+        margin-left:0;
+        gap:18px;
+        width:100%;
+        flex-wrap:wrap;
+    }
+
+    .nav-links a{
+        font-size:15px;
+        padding:6px 10px;
+    }
+
+    .content{
+        margin:20px auto;
+        padding:0 14px;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .site-title{
+        font-size:34px;
+        letter-spacing:3px;
+    }
+
+}
 </style>
 
 </head>
 <body>
 {% load static %}
 
-<div class="site-header">
-    <h1 class="site-title">CRUSHER FANTASY</h1>
+<div class="topbar">
+
+    <div class="brand">
+
+        <img src="{% static 'images/crusher_logo.png' %}" class="brand-logo">
+
+        <span class="brand-title">Crusher Fantasy</span>
+
+    </div>
+
+    <div class="nav-links">
+
+<a href="/players/"
+class="{% if request.path == '/players/' %}active{% endif %}">
+Rankings
+</a>
+
+<a href="/vote/"
+class="{% if request.path == '/vote/' %}active{% endif %}">
+Vote
+</a>
+
+<a href="/about/"
+class="{% if request.path == '/about/' %}active{% endif %}">
+About
+</a>
+
 </div>
 
-<div class="navbar">
-    <a href="/players/">Rankings</a>
-    <a href="/">Vote</a>
-    <a href="/about/">About and Feedback</a>
 </div>
-
 <div class="content">
 
 {% block content %}

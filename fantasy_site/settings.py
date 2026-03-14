@@ -31,7 +31,15 @@ SECRET_KEY = 'django-insecure-suo+dpovq3-ej%ta(nb%tmp-$(h_5dy97(%khf$1l6*^jf2i9^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+STATIC_URL = 'static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "fantasy_site" / "static",
+]
 ALLOWED_HOSTS = [
     "crusherfantasy.com",
     "www.crusherfantasy.com",
