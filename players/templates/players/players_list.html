@@ -306,17 +306,41 @@ tr:hover{
         gap:10px;
     }
 
-    .search-input{
-        width:100%;
-        height:30px;
-        font-size:15px;
-    }
+    /* ===== COMPACT MOBILE TOOLBAR ===== */
 
-    .toolbar-btn{
-        width:100%;
-        height:30px;
-        font-size:15px;
-    }
+.mobile-search-line .search-input{
+    width:100%;
+    height:36px;
+    font-size:14px;
+    padding:0 12px;
+    border-radius:18px;
+}
+
+.mobile-button-line{
+    display:flex;
+    gap:6px;
+}
+
+.mobile-button-line .toolbar-btn{
+    flex:1;
+    height:34px;
+    font-size:13px;
+    border-radius:18px;
+    padding:0;
+}
+
+.mobile-filter-line{
+    display:flex;
+    gap:6px;
+}
+
+.mobile-filter-line .toolbar-btn{
+    flex:1;
+    height:32px;
+    font-size:12px;
+    border-radius:18px;
+    padding:0 6px;
+}
 
     /* Dropdown fix */
 
