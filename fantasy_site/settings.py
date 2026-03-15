@@ -163,10 +163,19 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = 'smtp.office365.com'
+
+EMAIL_HOST = "smtp.sendgrid.net"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = 'crusherfantasy@outlook.com'
-EMAIL_HOST_PASSWORD = 'Egey3678910#'
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_USER = "apikey"
+
+DEFAULT_FROM_EMAIL = "noreply@crusherfantasy.com"
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+import os
+EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")
+
+if not EMAIL_HOST_PASSWORD:
+    raise Exception("SENDGRID_API_KEY not found in environment variables")
+
+EMAIL_TIMEOUT = 20
