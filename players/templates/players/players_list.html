@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-
+{% load query_transform %}
 <style>
 /* ===== DESKTOP LAYOUT ===== */
 
@@ -332,16 +332,18 @@ tr:hover{
     border-radius:20px;
 }
 .mobile-filter-line{
-    width:100%;
     display:flex;
-    gap:8px;
+    gap:6px;
+    justify-content:center;
 }
 
 .mobile-filter-line .toolbar-btn{
-    flex:0 0 80px;
-    height:32px;
-    font-size:12px;
-    border-radius:20px;
+    flex:0 0 auto;
+    padding:0 10px;
+    height:28px;
+    font-size:11px;
+    border-radius:14px;
+    min-width:60px;
 }
 
     /* Dropdown fix */
@@ -546,29 +548,31 @@ class="player-headshot">
 
 <div class="pagination-container">
 
-<div>
-{% if page_obj.has_previous %}
-<a class="arrow-button" href="?page={{ page_obj.previous_page_number }}">
-<svg viewBox="0 0 24 24" class="arrow-icon">
-<path d="M15 6 L9 12 L15 18" />
-</svg>
-</a>
-{% endif %}
-</div>
+    <div>
+        {% if page_obj.has_previous %}
+        <a class="arrow-button"
+           href="?{% query_transform request page=page_obj.previous_page_number %}">
+            <svg viewBox="0 0 24 24" class="arrow-icon">
+                <path d="M15 6 L9 12 L15 18" />
+            </svg>
+        </a>
+        {% endif %}
+    </div>
 
-<div class="pagination-center">
-Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-</div>
+    <div class="pagination-center">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+    </div>
 
-<div style="text-align:right">
-{% if page_obj.has_next %}
-<a class="arrow-button" href="?page={{ page_obj.next_page_number }}">
-<svg viewBox="0 0 24 24" class="arrow-icon">
-<path d="M9 6 L15 12 L9 18" />
-</svg>
-</a>
-{% endif %}
-</div>
+    <div style="text-align:right">
+        {% if page_obj.has_next %}
+        <a class="arrow-button"
+           href="?{% query_transform request page=page_obj.next_page_number %}">
+            <svg viewBox="0 0 24 24" class="arrow-icon">
+                <path d="M9 6 L15 12 L9 18" />
+            </svg>
+        </a>
+        {% endif %}
+    </div>
 
 </div>
 
