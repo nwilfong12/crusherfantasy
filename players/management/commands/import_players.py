@@ -5,8 +5,15 @@ from nba_api.stats.endpoints import commonplayerinfo
 import time
 
 
+from django.core.management.base import BaseCommand
+from players.models import Player
+from nba_api.stats.static import players
+from nba_api.stats.endpoints import commonplayerinfo
+import time
+
+
 class Command(BaseCommand):
-    help = "Import active NBA players with team and position"
+    help = "Import active NBA players safely"
 
     def handle(self, *args, **kwargs):
 
@@ -22,21 +29,25 @@ class Command(BaseCommand):
                 position = data["POSITION"]
                 player_id = p["id"]
 
-                Player.objects.update_or_create(
-                    name=name,
+                player, created = Player.objects.update_or_create(
+                    player_id=player_id,   # ⭐ SAFE UNIQUE KEY
                     defaults={
-                        "player_id": player_id,
+                        "name": name,
                         "team": team,
                         "position": position,
-                        "value": 500
                     }
                 )
 
-                print(f"Imported {name}")
+                # only set value for NEW players
+                if created:
+                    player.value = 500
+                    player.save()
 
-                time.sleep(0.6)  # prevents API rate limits
+                print(f"Synced {name}")
+
+                time.sleep(0.6)
 
             except Exception as e:
                 print("Error importing:", p["full_name"], e)
 
-        self.stdout.write(self.style.SUCCESS("Players imported successfully"))
+        self.stdout.write(self.style.SUCCESS("Players synced safely"))
