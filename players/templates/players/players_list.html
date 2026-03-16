@@ -526,7 +526,7 @@ class="mobile-headshot">
 <div>
 <div>{{ player.name }}</div>
 <div class="mobile-rank">
-Rank {{ start_rank|add:forloop.counter }} • {{ player.position }}
+Rank {{ start_rank|add:forloop.counter }} • {{ player.position}} • Age {{ player.age }}
 </div>
 </div>
 </div>
@@ -546,6 +546,7 @@ Rank {{ start_rank|add:forloop.counter }} • {{ player.position }}
 <th>Rank</th>
 <th>Player</th>
 <th>Position</th>
+<th>Age</th>
 <th>Value</th>
 </tr>
 
@@ -564,7 +565,7 @@ class="player-headshot">
 </td>
 
 <td>{{ player.position }}</td>
-
+<td>{{ player.age }}</td>
 <td class="player-value">{{ player.value }}</td>
 
 </tr>

@@ -10,7 +10,7 @@ from players.models import Player
 from nba_api.stats.static import players
 from nba_api.stats.endpoints import commonplayerinfo
 import time
-
+from datetime import datetime
 
 class Command(BaseCommand):
     help = "Import active NBA players safely"
@@ -28,6 +28,12 @@ class Command(BaseCommand):
                 team = data["TEAM_NAME"]
                 position = data["POSITION"]
                 player_id = p["id"]
+                birthdate = data["BIRTHDATE"]
+                age = None;
+                if birthdate:
+                    birth = datetime.strptime(birthdate, "%Y-%m-%dT%H:%M:%S")
+                    today = datetime.today()
+                    age = today.year - birth.year - ((today.month, today.day) < (birth.month, birth.day))
 
                 player, created = Player.objects.update_or_create(
                     player_id=player_id,   # ⭐ SAFE UNIQUE KEY
@@ -35,6 +41,7 @@ class Command(BaseCommand):
                         "name": name,
                         "team": team,
                         "position": position,
+                        "age": age,
                     }
                 )
 
