@@ -160,22 +160,22 @@ STATIC_URL = 'static/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = "smtp.sendgrid.net"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+#EMAIL_HOST = "smtp.sendgrid.net"
+#EMAIL_PORT = 587
+#EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = "apikey"
+#EMAIL_HOST_USER = "apikey"
 
-DEFAULT_FROM_EMAIL = "noreply@crusherfantasy.com"
-SERVER_EMAIL = DEFAULT_FROM_EMAIL
-import os
-EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")
+#DEFAULT_FROM_EMAIL = "noreply@crusherfantasy.com"
+#SERVER_EMAIL = DEFAULT_FROM_EMAIL
+#import os
+#EMAIL_HOST_PASSWORD = os.environ.get("SENDGRID_API_KEY")
 
-if not EMAIL_HOST_PASSWORD:
-    raise Exception("SENDGRID_API_KEY not found in environment variables")
+#if not EMAIL_HOST_PASSWORD:
+#    raise Exception("SENDGRID_API_KEY not found in environment variables")
 
-EMAIL_TIMEOUT = 20
+3EMAIL_TIMEOUT = 20

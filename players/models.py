@@ -5,7 +5,7 @@ class Player(models.Model):
     player_id = models.IntegerField(unique=True, db_index=True)
     name = models.CharField(max_length=100)
     team = models.CharField(max_length=50)
-    position = models.CharField(max_length=10)
+    position = models.CharField(max_length=30)
     value = models.IntegerField(default = 500)
 
     def __str__(self):
