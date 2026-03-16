@@ -178,4 +178,4 @@ STATIC_URL = 'static/'
 #if not EMAIL_HOST_PASSWORD:
 #    raise Exception("SENDGRID_API_KEY not found in environment variables")
 
-3EMAIL_TIMEOUT = 20
+#EMAIL_TIMEOUT = 20
