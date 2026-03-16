@@ -18,6 +18,31 @@
     display:flex;
     gap:8px;
 }
+/* ranking header */
+.ranking-header{
+    margin-bottom: 8px;
+}
+/* Vote count */
+.market-stats{
+    margin-bottom: 8px;
+    display:flex;
+    align-items:baseline;
+    gap:8px;
+}
+
+.market-number{
+    font-size:22px;
+    font-weight:800;
+    color:var(--primary-500);
+    letter-spacing:.5px;
+}
+.market-label{
+    font-size:14px;
+    font-weight: 600;
+    color:var(--primary-300);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+}
 /* =========================
    FILTER PANEL
 ========================= */
@@ -32,7 +57,7 @@
 }
 
 .filter-panel h1{
-    margin:0 0 26px 0;
+    margin:0 0 10px 0;
     font-size:36px;
     font-weight:800;
 }
@@ -432,8 +457,11 @@ tr:hover{
 
 
 <div class="filter-panel">
-<h1>Dynasty Player Rankings</h1>
-
+<h1 class = "ranking-header">Dynasty Player Rankings</h1>
+<div class="market-stats">
+    <span class="market-number">{{ total_votes }}</span>
+    <span class="market-label">total market votes</span>
+</div>
 <form method="GET">
 
 <div class="controls-row">

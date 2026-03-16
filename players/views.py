@@ -5,6 +5,7 @@ from django.shortcuts import render
 from .models import Player
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from players.models import Player, Vote
 
 def player_search(request):
 
@@ -133,9 +134,12 @@ def players_list(request):
         else:
             player.logo_url = ""
 
+    total_votes = Vote.objects.count()
+
     return render(request, "players/players_list.html", {
         "page_obj": page_obj,
         "query": query,
         "start_rank": start_rank,
         "selected_positions": selected_positions,
+        "total_votes": total_votes,
     })
