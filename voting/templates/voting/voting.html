@@ -15,7 +15,8 @@
 .vote-title{
     font-size:34px;
     font-weight:800;
-    margin-bottom:30px;
+    margin-bottom:14px;
+    margin-top:0px;
 }
 
 /* =========================
@@ -25,7 +26,7 @@
 .players-container{
     display:flex;
     justify-content:center;
-    gap:25px;
+    gap:18px;
     flex-wrap:wrap;
 }
 
@@ -55,6 +56,12 @@
 .player-headshot{
     width:160px;
     height:auto;
+    margin-bottom:2px;
+}
+.player-age{
+    font-size:13px;
+    color: var(--text-secondary);
+    margin:2px 0 0 0;
 }
 
 /* Team Logo */
@@ -68,7 +75,7 @@
 /* Player Name */
 
 .player-card h3{
-    margin:12px 0 6px 0;
+    margin:3px 0 1px 0;
     font-size:20px;
 }
 
@@ -77,6 +84,7 @@
 .player-position{
     color: var(--text-secondary);
     font-size:14px;
+    margin: 0;
 }
 
 /* Rank Badge */
@@ -98,7 +106,7 @@
 ========================= */
 
 .vote-buttons{
-    margin-top:40px;
+    margin-top:18px;
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -151,6 +159,7 @@ form{
 .vote-title{
     font-size:18px;
     margin-bottom:10px;
+    margin-top:6px;
 }
 
 /* 3-2 GRID */
@@ -207,6 +216,13 @@ form{
     font-size:10px;
 }
 
+/* player age */
+.player-age{
+    font-size:10px;
+    margin-top:1px;
+    line-height:1.05;
+}
+
 /* rank bubble */
 
 .rank-number{
@@ -258,7 +274,12 @@ class="player-headshot">
 
 <p class="player-position">
 <img src="{{ player.logo_url }}" class="team-logo">
-{{ player.position }}
+
+{{ player.position  }}
+</p>
+
+<p class="player-age">
+Age {{ player.age }}
 </p>
 
 <input type="hidden" name="player_{{ player.id }}" id="input_{{ player.id }}">
