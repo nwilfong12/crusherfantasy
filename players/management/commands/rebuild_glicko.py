@@ -1,26 +1,25 @@
 from django.core.management.base import BaseCommand
-from players.models import Player, Vote
+from players.models import Player, VoteSession
 from players.glicko import update_player
-from datetime import timedelta
 
-GROUP_WINDOW = 5
 
 class Command(BaseCommand):
 
-    help = "Rebuild Glicko ratings"
+    help = "Rebuild Glicko ratings using REAL vote sessions"
 
     def handle(self, *args, **kwargs):
 
-        vote_count = Vote.objects.count()
+        session_count = VoteSession.objects.count()
 
-        if vote_count == 0:
-            self.stdout.write("No votes found. Abort.")
+        if session_count == 0:
+            self.stdout.write("No vote sessions found. Abort.")
             return
 
         confirm = input("Type YES to rebuild ratings: ")
         if confirm != "YES":
             return
 
+        # HARD RESET RATINGS
         Player.objects.update(
             glicko_rating=1500,
             glicko_rd=350,
@@ -29,33 +28,23 @@ class Command(BaseCommand):
             last_rating_update=None
         )
 
-        votes = Vote.objects.select_related("player").order_by("created_at")
+        sessions = (
+            VoteSession.objects
+            .prefetch_related("vote_set__player")
+            .order_by("created_at")
+        )
 
-        sessions = []
-        current = []
-        last_time = None
-
-        for vote in votes:
-
-            if not last_time:
-                current.append(vote)
-
-            elif vote.created_at - last_time <= timedelta(seconds=GROUP_WINDOW):
-                current.append(vote)
-
-            else:
-                if len(current) >= 5:
-                    sessions.append(current)
-                current = [vote]
-
-            last_time = vote.created_at
-
-        if len(current) >= 5:
-            sessions.append(current)
+        processed = 0
 
         for session in sessions:
 
-            ranked = sorted(session, key=lambda v: v.rank)
+            votes = list(session.vote_set.all())
+
+            # skip broken sessions
+            if len(votes) < 5:
+                continue
+
+            ranked = sorted(votes, key=lambda v: v.rank)
 
             players_ranked = [(v.player, v.rank) for v in ranked]
 
@@ -79,4 +68,9 @@ class Command(BaseCommand):
                 update_player(player_i, results)
                 player_i.save()
 
-        self.stdout.write("Glicko rebuild complete")
+            processed += 1
+
+            if processed % 500 == 0:
+                self.stdout.write(f"Processed {processed} sessions...")
+
+        self.stdout.write(self.style.SUCCESS("Glicko rebuild complete"))
