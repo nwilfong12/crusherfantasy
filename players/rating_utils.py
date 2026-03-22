@@ -4,14 +4,12 @@ import math
 def normalize_live():
 
     players = list(Player.objects.all())
-
     if not players:
         return
 
     ratings = [p.glicko_rating for p in players]
 
     mean = sum(ratings) / len(ratings)
-
     variance = sum((r - mean) ** 2 for r in ratings) / len(ratings)
     std = math.sqrt(variance)
 
@@ -22,10 +20,12 @@ def normalize_live():
 
         z = (p.glicko_rating - mean) / std
 
-        base = 1 / (1 + math.exp(-z))
+        # ⭐ STRONGER ELITE PUSH
+        base = 1 / (1 + math.exp(-1.5 * z))
 
-        curved = base ** 3
+        # ⭐ BETTER DYNASTY CURVE
+        curved = base ** 2.2
 
-        p.value = curved * 1000
+        p.value = int(curved * 1000)
 
     Player.objects.bulk_update(players, ["value"])
