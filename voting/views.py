@@ -1,32 +1,33 @@
-from django.shortcuts import render
-
-# Create your views here.
-import random
-from players.models import Player, Vote
-from players.rankings import vote_score
 from django.shortcuts import render, redirect
-from players.models import Player
-from django.utils import timezone
-from players.rankings import calculate_player_value
+import random
+
+from players.models import Player, Vote
+from players.glicko import update_player
+from players.rating_utils import normalize_live
+from players.matchmaking import get_matchup
+
 
 def vote_page(request):
+
     if request.method == "POST":
+
         if "skip_vote" in request.POST:
             return redirect("/vote/")
+
         selections = {}
 
         for key in request.POST:
             if key.startswith("player_"):
-                player_id = key.split("_")[1]
+                player_id = int(key.split("_")[1])
                 rank = int(request.POST.get(key))
                 selections[player_id] = rank
 
         ranks = list(selections.values())
-
         if sorted(ranks) != [1, 2, 3, 4, 5]:
-            return redirect("/")
+            return redirect("/vote/")
 
-        # save votes first
+        session_players = []
+
         for player_id, rank in selections.items():
             player = Player.objects.get(id=player_id)
 
@@ -35,27 +36,46 @@ def vote_page(request):
                 rank=rank
             )
 
-        # now update player values
-        for player_id in selections:
-            player = Player.objects.get(id=player_id)
+            session_players.append((player, rank))
 
-            player.value = calculate_player_value(player)
-            player.save()
+        session_players.sort(key=lambda x: x[1])
 
-        # move redirect OUTSIDE the loop
+        for i in range(len(session_players)):
+
+            player_i, rank_i = session_players[i]
+            results = []
+
+            for j in range(len(session_players)):
+                if i == j:
+                    continue
+
+                player_j, rank_j = session_players[j]
+
+                if rank_i < rank_j:
+                    results.append((player_j, 1))
+                else:
+                    results.append((player_j, 0))
+
+            update_player(player_i, results)
+            player_i.save()
+
+        normalize_live()
+
         first_vote = not request.session.get("has_voted", False)
-
         request.session["has_voted"] = True
 
         if first_vote:
             return redirect("/players/")
         else:
             return redirect("/vote/")
+
     players = list(Player.objects.all())
-    if(len(players)) >=5:
-        selected_players = random.sample(players, 5)
+
+    if len(players) >= 5:
+        selected_players = get_matchup()
     else:
         selected_players = players
+
     TEAM_IDS = {
         "Hawks": "1610612737",
         "Celtics": "1610612738",
@@ -95,6 +115,7 @@ def vote_page(request):
             player.logo_url = f"https://cdn.nba.com/logos/nba/{team_id}/global/L/logo.svg"
         else:
             player.logo_url = ""
+
     return render(request, "voting/voting.html", {
         "players": selected_players
     })
