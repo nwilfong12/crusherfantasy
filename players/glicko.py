@@ -33,12 +33,14 @@ def update_player(player, results):
 
     v = 1 / v_inv
 
-    mu_new = mu + (phi**2) * delta_sum
-    phi_new = math.sqrt(1 / (1/phi**2 + 1/v))
+
+    denom = (1 / phi**2) + (1 / v)
+
+    mu_new = mu + (delta_sum / denom)
+    phi_new = math.sqrt(1 / denom)
 
     player.glicko_rating = 1500 + SCALE * mu_new
     player.glicko_rd = SCALE * phi_new
     player.last_rating_update = timezone.now()
-
 
     player.value = player.glicko_rating
