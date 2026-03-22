@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import random
 
-from players.models import Player, Vote
+from players.models import Player, Vote, VoteSession   # ✅ ADDED VoteSession
 from players.glicko import update_player
 from players.rating_utils import normalize_live
 from players.matchmaking import get_matchup
@@ -26,6 +26,9 @@ def vote_page(request):
         if sorted(ranks) != [1, 2, 3, 4, 5]:
             return redirect("/vote/")
 
+        # ✅ STEP 1 — CREATE REAL SESSION
+        vote_session = VoteSession.objects.create()
+
         session_players = []
 
         for player_id, rank in selections.items():
@@ -33,7 +36,8 @@ def vote_page(request):
 
             Vote.objects.create(
                 player=player,
-                rank=rank
+                rank=rank,
+                session=vote_session   # ✅ ATTACHED SESSION
             )
 
             session_players.append((player, rank))
