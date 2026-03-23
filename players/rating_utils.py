@@ -1,22 +1,30 @@
 from players.models import Player
 import math
 
-from players.models import Player
-
 def normalize_live():
 
-    players = list(Player.objects.all().order_by("-glicko_rating"))
-
-    n = len(players)
-    if n == 0:
+    players = list(Player.objects.all())
+    if not players:
         return
 
-    for i, p in enumerate(players):
+    ratings = [p.glicko_rating for p in players]
 
-        rank_percentile = i / (n - 1)
+    mean = sum(ratings) / len(ratings)
+    variance = sum((r - mean) ** 2 for r in ratings) / len(ratings)
+    std = math.sqrt(variance)
 
-        value = 1000 - (rank_percentile ** 0.65) * 800
+    if std == 0:
+        return
 
-        p.value = int(value)
+    for p in players:
+
+        z = (p.glicko_rating - mean) / std
+
+        base = 1 / (1 + math.exp(-1.5 * z))
+
+
+        curved = base ** 2.2
+
+        p.value = int(curved * 1000)
 
     Player.objects.bulk_update(players, ["value"])
