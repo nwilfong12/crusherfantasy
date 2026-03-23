@@ -20,7 +20,7 @@ def normalize_live():
 
         z = (p.glicko_rating - mean) / std
 
-        base = 1 / (1 + math.exp(-1.8 * z))
+        base = 1 / (1 + math.exp(-1.3 * z))
 
         curved = base ** 3.8
 
