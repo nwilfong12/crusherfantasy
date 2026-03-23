@@ -23,7 +23,7 @@ def normalize_live():
         base = 1 / (1 + math.exp(-1.5 * z))
 
 
-        curved = base ** 2.2
+        curved = base ** 2.8
 
         p.value = int(curved * 1000)
 
