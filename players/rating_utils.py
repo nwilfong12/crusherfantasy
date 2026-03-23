@@ -18,9 +18,9 @@ def normalize_live():
 
     for p in players:
 
-        z = (p.glicko_rating - mean) / std
+        z = (p.glicko_rating - mean) / (std * 0.6)
 
-        base = 1 / (1 + math.exp(-1.8 * z))
+        base = 1 / (1 + math.exp(-1.4 * z))
 
 
         curved = base ** 3.8
