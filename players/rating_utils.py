@@ -20,10 +20,10 @@ def normalize_live():
 
         z = (p.glicko_rating - mean) / std
 
-        base = 1 / (1 + math.exp(-1.6 * z))
+        base = 1 / (1 + math.exp(-1.8 * z))
 
 
-        curved = base ** 3.2
+        curved = base ** 3.8
 
         p.value = int(curved * 1000)
 
