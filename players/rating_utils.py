@@ -1,31 +1,19 @@
 from players.models import Player
-import math
 
 def normalize_live():
 
-    players = list(Player.objects.all())
-    if not players:
+    players = list(Player.objects.all().order_by("-glicko_rating"))
+
+    n = len(players)
+    if n == 0:
         return
 
-    ratings = [p.glicko_rating for p in players]
+    for i, p in enumerate(players):
 
-    mean = sum(ratings) / len(ratings)
-    variance = sum((r - mean) ** 2 for r in ratings) / len(ratings)
-    std = math.sqrt(variance)
+        percentile = 1 - (i / (n - 1))   # 1 → best player
 
-    if std == 0:
-        return
+        value = 1000 * (percentile ** 0.55)
 
-    for p in players:
-
-        z = (p.glicko_rating - mean) / std
-
-        # ⭐ STRONGER ELITE PUSH
-        base = 1 / (1 + math.exp(-1.5 * z))
-
-        # ⭐ BETTER DYNASTY CURVE
-        curved = base ** 2.2
-
-        p.value = int(curved * 1000)
+        p.value = int(value)
 
     Player.objects.bulk_update(players, ["value"])
