@@ -6,7 +6,8 @@ from .models import Player
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from players.models import Player, Vote
-
+from .trade_utils import evaluate_trade
+from django.views.decorators.csrf import csrf_exempt
 def player_search(request):
 
     query = request.GET.get("q")
@@ -143,3 +144,50 @@ def players_list(request):
         "selected_positions": selected_positions,
         "total_votes": total_votes,
     })
+def trade_calculator(request):
+    players = Player.objects.all()
+
+    if request.method == "POST":
+        team1_ids = request.POST.getlist("team1")
+        team2_ids = request.POST.getlist("team2")
+
+        team1 = Player.objects.filter(id__in=team1_ids)
+        team2 = Player.objects.filter(id__in=team2_ids)
+
+        result = evaluateA_trade(team1, team2)
+
+        return render(request, "plauers/trade.html",{
+            "players": players,
+            "result": result,
+            "team1": team1,
+            "team2": team2
+        })
+    return render(request, "players/trade.html", {"players": players})
+
+def player_search(request):
+    query = request.GET.get("q", "")
+
+    players = Player.objects.filter(name_icontains=query)[:10]
+
+    data = [
+        {
+            "id": p.id,
+            "name": p.name,
+            "player_id": p.player_id,
+            "position": p.position,
+            "age": p.age,
+            "value": p.value,
+            "logo_url": p.logo_url,
+        }
+        for p in players
+    ]
+    return JsonResponse(data, safe=False)
+@csrf_exempt
+def evaluate_trade_api(request):
+    data = json.loads(request.body)
+    team1 = Player.objects.filter(id__in=data["team1"])
+    team2 = Player.objects.filter(id__in=data["team2"])
+
+    result = evaluate_trade(team1, team2)
+
+    return JsonResponse(result)

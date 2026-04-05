@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.player-card{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px;
+    border-radius:12px;
+    background:white;
+    margin-bottom:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+    cursor:pointer;
+}
+
+.player-headshot{
+    width:50px;
+    height:50px;
+}
+
+.team-logo{
+    width:30px;
+    margin-left:auto;
+}
+
+/* Search Input */
+
+.search-wrapper{
+    position:relative;
+}
+
+.search-input{
+    width:380px;
+    max-width:100%;
+    height:48px;
+    padding:0 20px;
+    border-radius:40px;
+    border 1px solid var(--border);
+    font-size:16px;
+    background:white;
+}
+
+#search-results{
+    position:absolute;
+    top:55px;
+    width:100%;
+    background:white;
+    border-radius:16px;
+    box-shadow: var(--shadow-lg);
+    border:1px solid var(--border);
+    overflow:hidden;
+    z-index:100;
+}
+
+.search-result{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:12px;
+    cursor:pointer;
+}
+.search-headshot{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+}
+
+.search-team{
+    width:22px;
+    margin-left:auto;
+}
+
+.search-position{
+    color: var(--text-muted);
+    font-size:14px;
+}
+</style>
+<h1>Trade Calculator</h1>
+
+
+<!-- Search results -->
+<div id="search-results"></div>
+
+<hr>
+
+<!-- Teams -->
+<div style="display:flex; gap:40px;">
+
+    <!-- Team 1 -->
+    <div style="flex:1;">
+        <h3>Team 1</h3>
+        <div class="search-wrapper">
+            <input type="text"
+                name="q"
+                placeholder="Search NBA players..."
+                value="{{ query|default:'' }}"
+                class="search-input"
+                id="player-search"
+                autocomplete="off">
+            <div id="search-results"></div>
+        </div>
+        <div id="team1"></div>
+    </div>
+
+    <!-- Team 2 -->
+    <div style="flex:1;">
+        <h3>Team 2</h3>
+        <div class="search-wrapper">
+            <input type="text"
+                name="q"
+                placeholder="Search NBA players..."
+                value="{{ query|default:'' }}"
+                class="search-input"
+                id="player-search"
+                autocomplete="off">
+            <div id="search-results"></div>
+        </div>
+        <div id="team2"></div>
+    </div>
+
+</div>
+
+<!-- Result -->
+<h2 id="trade-result"></h2>
+
+{% endblock %}
+function createPlayerCard(player) {
+    return `
+    <div class="player-card" data-id="${player.id}">
+        <img src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.player_id}.png"
+             class="player-headshot">
+
+        <div>
+            <strong>${player.name}</strong><br>
+            ${player.position} | Age ${player.age}<br>
+            Value: ${Math.round(player.value)}
+        </div>
+
+        <img src="${player.logo_url}" class="team-logo">
+    </div>
+    `;
+}
+<script>
+    let selectedSide = "team1";
+
+    document.getElementById("player_search").addEventListerner("input", async function(){
+        const query = this.value;
+
+    const res = await fetch(`/players/search/?q=${query}`);
+    const players = await res.json();
+    const resultsDiv = document.getElementById("search-results");
+    resultsDov.innerHTML = "";
+
+    players.forEach(player => {
+        const card = document.createElement("div");
+        card.innerHTML = createPlayerCard(player);
+
+        card.onclick = () => addPlayer(player);\
+        resultsDiv.appendChild(card);
+    });
+});
+
+function createPlayerCard(player){
+    return `
+    <div clas = "player-card">
+    <img src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.player_id}.png">
+    <div>
+        <strong>${player.name}</strong><br>
+        ${player.position}| Age ${player.age}
+    </div>
+    </div>
+    `;
+}
+
+function addPlayer(player){
+    const teamDiv = document.getElementById(selectedSide);
+    const card = document.createElement("div");
+    card.innerHTML = createPlayerCard(player);
+
+    teamDiv.appendChild(card);
+
+    evaluateTrade();
+}
+
+const searchInput = document.getElementById("player-search")
+const resultsBox = document.getElementById("search-results")
+
+searchInput.addEventListener("keyup", function(){
+    const query = searchInput.value
+
+    if(query.length < 2){
+        resultsBox.innerHTML = ""
+        return
+    }
+
+    fetch(`/players/player-search/?q=${query}`)
+    .then(response => response.json())
+    .then(data => {
+        resultsBox.innerHTML = ""
+
+        data.players.forEach(player => {
+            const div = document.createElement("div")
+            div.classList.add("search-result")
+
+            div.innerHTML = `
+<img src="https://cdn.nba.com/headshots/nba/latest/260x190/${player.player_id}.png" class="search-headshot">
+<span>${player.name}</span>
+<span class="search-position">${player.position}</span>
+<img src="${player.logo}" class="search-team">
+`
+
+            div.onclick = () => {
+                addPlayer(player)
+            }
+
+            resultsBox.appendChild(div)
+        })
+    })
+})
+
+</script>
